@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { CommentIcon, IssueOpenedIcon } from '@primer/octicons-react';
-import './GitHubIssuesPage.css';
+import '../Styles/GitHubIssuesPage.css';
 import {Link} from 'react-router-dom'
+import PaginatedIssues from '../Components/PaginatedIssues';
 export const GitHubIssuesPage = () => {
   const [issues, setIssues] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [loading,setloading] = useState(false)
 
   useEffect(() => {
     fetchIssues();
@@ -14,13 +16,14 @@ export const GitHubIssuesPage = () => {
 
   const fetchIssues = async () => {
     try {
+      setloading(true)
       const response = await fetch(`https://api.github.com/repos/microsoft/WSL/issues?page=${currentPage}`);
       const data = await response.json();
-      console.log(data)
       setIssues(data);
+      setloading(false)
       const linkHeader = response.headers.get('Link');
       if (linkHeader) {
-        const totalPagesMatch = linkHeader.match(/&page=(\d+)>; rel="last"/);
+        const totalPagesMatch = linkHeader.match(/page=(\d+)>;\srel="last"/);
         if (totalPagesMatch) {
           setTotalPages(parseInt(totalPagesMatch[1]));
         }
@@ -31,24 +34,29 @@ export const GitHubIssuesPage = () => {
   };
 
   const handlePageChange = (pageNumber) => {
+    console.log('pagenumber',pageNumber)
     setCurrentPage(pageNumber);
   };
 
+  if(loading){
+    return <h1>...loading</h1>
+  }
   return (
-    <div className="container-lg">
-      <div className="issues-listing">
-        <div className="issues-listing__body">
-          {issues.map((issue) => (
-            <div className="Box" key={issue.id}>
+    <div className="container">
+      <div className="issues-list">
+        <div className="issues-list__body">
+          {issues.map((issue,idx) => (
+            <div className="Box" key={issue.id} style={{
+              borderBottom : issues.length-1===idx ?'none': "1px solid #e1e4e8"
+            }}>
               <div className="Box-body">
                 <div className="Box-row">
-                  <h4 className="issue-title">
-                 <span className='open-issue-icon'><IssueOpenedIcon size={16}/></span>
+                  <h5 className="issue-title">
+                 <span 
+                 className='open-issue-icon'><IssueOpenedIcon size={15}/></span>
                     <Link to={`/issue/${issue.id}`} title={issue.title} >{issue.title}</Link>
-                  </h4>
-                  <span className="issue-meta__comments" style={{
-                    
-                  }}>
+                  </h5>
+                  <span className="issue__comments">
                     {
                       issue.comments!=0 ? <CommentIcon size={16} /> : ""
                     }               
@@ -57,8 +65,8 @@ export const GitHubIssuesPage = () => {
                 </div>
 
                 <div className="Box-row2">
-                  <span className="issue-meta">
-                  <span className="issue-meta__details">
+                  <span className="issue">
+                  <span className="issue__details">
                     #{issue.number} opened {formatDistanceToNow(new Date(issue.created_at))} by {issue.user.login}
                   </span>
                   </span>
@@ -67,36 +75,23 @@ export const GitHubIssuesPage = () => {
             </div>
           ))}
         </div>
-        <div className="pagination">
-          <div className="pagination__container">
-            <button
-              className={`btn btn-outline BtnGroup-item ${currentPage === 1 ? 'disabled' : ''}`}
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              Previous
-            </button>
-            {Array.from({ length: totalPages }, (_, index) => index + 1).map((pageNumber) => (
-              <button
-                key={pageNumber}
-                className={`btn btn-outline BtnGroup-item ${pageNumber === currentPage ? 'selected' : ''}`}
-                onClick={() => handlePageChange(pageNumber)}
-              >
-                {pageNumber}
-              </button>
-            ))}
-            <button
-              className={`btn btn-outline BtnGroup-item ${currentPage === totalPages ? 'disabled' : ''}`}
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-            >
-              Next
-            </button>
-          </div>
-        </div>
+       
+      </div>
+      <div>
+      <PaginatedIssues currentPage={currentPage} totalPages={totalPages} handleClick={handlePageChange}/>
       </div>
     </div>
   );
 };
 
 
+
+
+// <Pagination count={10} shape="rounded" color="primary" renderItem={(item) => (
+//   <PaginationItem
+//     component={IconButton}
+//     // onClick={item.page === 'previous' ? handlePreviousClick : handleNextClick}
+//   >
+//     {/* {item.page === 'previous' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />} */}
+//   </PaginationItem>
+// )}  />
