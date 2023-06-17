@@ -1,0 +1,146 @@
+.container-lg {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .issues-listing {
+    margin-top: 20px;
+  }
+  
+  .issues-listing__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .issues-listing__states {
+    display: flex;
+  }
+  
+  .btn-link {
+    display: inline-block;
+    padding: 6px 12px;
+    font-weight: 600;
+    line-height: 20px;
+    color: #0366d6;
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    background-color: #f6f8fa;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .btn-link--selected {
+    color: #0366d6;
+    border-color: #0366d6;
+    background-color: #f1f8ff;
+  }
+  
+  .issues-listing__icon {
+    fill: currentColor;
+    vertical-align: text-bottom;
+  }
+  
+  .issues-listing__body {
+    border: 1px solid #e1e4e8;
+    border-radius: 6px;
+    background-color: #fff;
+    padding: 16px;
+  }
+  
+  .Box {
+    margin-bottom: 16px;
+  }
+  
+  .Box-body {
+    padding: 12px;
+  }
+  .Box-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+  
+  .Box-row2 {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+  
+  .issue-title {
+    margin: 0;
+  }
+  
+  .issue-title a{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 600;
+    color: #1f2328;
+    text-decoration: none;
+  }
+   
+  .issue-meta__comments :hover{
+    color: #0969da;
+    fill: #0969da;
+
+  }
+  .issue-meta__comments{
+    font-size: 14px;
+    cursor: pointer;
+    color: #656D76;
+  }
+  .comment-numbers{
+    font-size: 12px;
+    margin-left: 3px;
+  }
+
+  .issue-title a:hover { 
+    color: #0969da;
+  }
+  
+  .issue-meta {
+    font-size: 12px;
+    color: #586069;
+  }
+  
+  .issue-meta__number {
+    margin-right: 8px;
+  }
+  
+  .issue-meta__user {
+    font-weight: 600;
+    margin-left: 8px;
+  }
+  
+  .pagination {
+    margin-top: 16px;
+  }
+  
+  .pagination__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .BtnGroup-item {
+    margin-right: 4px;
+  }
+  
+  .BtnGroup-item:last-child {
+    margin-right: 0;
+  }
+  
+  .BtnGroup-item.disabled,
+  .BtnGroup-item:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  
+  .Box {
+    border-bottom: 1px solid #e1e4e8;
+  }
+  
