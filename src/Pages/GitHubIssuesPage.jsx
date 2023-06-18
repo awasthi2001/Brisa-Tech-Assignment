@@ -44,10 +44,16 @@ export const GitHubIssuesPage = () => {
     setCurrentPage(pageNumber);
   };
 
-  if(loading){
-    return  <div style={{
-      marginTop : '200px'
-    }}><CircularProgress size={75}/></div>
+  if (loading) {
+    return (
+      <div
+        style={{
+          marginTop: "200px",
+        }}
+      >
+        <CircularProgress size={75} />
+      </div>
+    );
   }
 
   return (
@@ -108,11 +114,3 @@ export const GitHubIssuesPage = () => {
   );
 };
 
-// <Pagination count={10} shape="rounded" color="primary" renderItem={(item) => (
-//   <PaginationItem
-//     component={IconButton}
-//     // onClick={item.page === 'previous' ? handlePreviousClick : handleNextClick}
-//   >
-//     {/* {item.page === 'previous' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />} */}
-//   </PaginationItem>
-// )}  />
