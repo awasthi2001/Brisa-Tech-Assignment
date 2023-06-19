@@ -94,7 +94,8 @@ export const GitHubIssuesPage = () => {
                     <span className="issue__details">
                       #{issue.number} opened{" "}
                       {formatDistanceToNow(new Date(issue.created_at))} by{" "}
-                      {issue.user.login}
+                      <span className="user"
+                      >{issue.user.login}</span>
                     </span>
                   </span>
                 </div>
@@ -113,4 +114,3 @@ export const GitHubIssuesPage = () => {
     </div>
   );
 };
-

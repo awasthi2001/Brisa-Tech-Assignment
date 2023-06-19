@@ -1,6 +1,6 @@
 .container {
   margin: 0 auto;
-  padding: 100px;
+  padding: 50px 150px;
 }
 
 .issues-list__body {
@@ -51,17 +51,20 @@ body {
   color: #1f2328;
   text-decoration: none;
 }
-
+.user:hover{
+  cursor: pointer;
+  color: #0969da;
+}
 .issue__comments {
   display: flex;
   font-size: 14px;
   cursor: pointer;
   color: #656d76;
 }
+
 .issue__comments:hover {
   color: #0969da;
 }
-
 .comment-numbers {
   font-size: 12px;
   margin-left: 3px;
@@ -107,8 +110,8 @@ body {
 
 /* Media Queries */
 @media (max-width: 768px) {
-  .container-lg {
-    padding: 10px;
+  .container {
+    padding: 10px 60px;
   }
 
   .issues-list__body {
