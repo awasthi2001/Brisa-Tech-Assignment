@@ -18,19 +18,22 @@ export const GitHubIssuesPage = () => {
     try {
       setloading(true);
       const response = await fetch(
-        `https://api.github.com/repos/microsoft/WSL/issues?page=${currentPage}`,
+        `https://api.github.com/repos/microsoft/WSL/issues?page=${currentPage}&per_page=25`,
         {
           headers: {
             Authorization: `Bearer ${process.env.REACT_APP_GITHUB_TOKEN}`,
           },
         }
       );
+
       const data = await response.json();
       setIssues(data);
       setloading(false);
       const linkHeader = response.headers.get("Link");
       if (linkHeader) {
-        const totalPagesMatch = linkHeader.match(/page=(\d+)>;\srel="last"/);
+        const totalPagesMatch = linkHeader.match(
+          /page=(\d+)&per_page=25>;\srel="last"/
+        );
         if (totalPagesMatch) {
           setTotalPages(parseInt(totalPagesMatch[1]));
         }
@@ -94,8 +97,7 @@ export const GitHubIssuesPage = () => {
                     <span className="issue__details">
                       #{issue.number} opened{" "}
                       {formatDistanceToNow(new Date(issue.created_at))} by{" "}
-                      <span className="user"
-                      >{issue.user.login}</span>
+                      <span className="user">{issue.user.login}</span>
                     </span>
                   </span>
                 </div>
